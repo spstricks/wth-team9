@@ -1,0 +1,4 @@
+jobs:
+    job1:
+        echo "step1"
+        echo "step2"
