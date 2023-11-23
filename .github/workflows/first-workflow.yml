@@ -9,3 +9,15 @@ jobs:
     steps:
     - name: Step 1
       run: echo 'step1'
+  
+
+  cow:
+    name: Cowsays
+    runs-on: ubuntu-latest
+    steps:
+    - name: Ship it
+      uses: mscoutermarsh/cowsays-action@master
+      with:
+        text: 'ship ship ship!'
+        color: 'red'
+  
