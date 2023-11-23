@@ -3,6 +3,12 @@
 
 name: .NET
 
+env:
+  registryName: lqeczigowl7uqwthreg.azurecr.io
+  repositoryName: "wth/dotnetcoreapp"
+  dockerFolderPath: "Application/src/RazorPagesTestSample"
+  tag: ${{ github.run_number }}
+
 on:
   push:
     branches: [ "main" ]
@@ -32,3 +38,26 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+  docker:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Auth
+      uses: actions/checkout@v2
+    
+    - name: Docker Login
+      uses: azure/docker-login@v1
+    -  run: docker login $registryName -u ACR_USERNAME -p ACR_PASSWORD
+
+    - name: Docker Build
+      uses: azure/docker-login@v1
+    -  run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+
+    - name: Docker Push
+      uses: azure/docker-login@v1
+    -  run: docker push $registryName/$repositoryName:$tag
+      
+
+
+
+  
