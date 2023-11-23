@@ -15,7 +15,9 @@ on:
 
 jobs:
   build:
-
+    defaults:
+      run:
+        working-directory: "/Application/src/Razor-Pages-Test-Sample"
     runs-on: ubuntu-latest
 
     steps:
@@ -26,15 +28,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
-      paths:
-      - '/Application'
-
     - name: Build
       run: dotnet build --no-restore
-      paths:
-      - '/Application'
-
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      paths:
-      - '/Application'
